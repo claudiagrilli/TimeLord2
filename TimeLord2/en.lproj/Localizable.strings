@@ -1,0 +1,15 @@
+/* Add in add client alert */
+"Add action" = "Add";
+
+/* Title in add client alert */
+"Add client" = "Clients";
+
+/* Cancel in add client alert */
+"Cancel action" = "Cancel";
+
+/* Client placeholder in add client alert */
+"Client add placeholder" = "Client";
+
+/* Message in add client alert */
+"Insert a new client" = "Add a new client";
+
