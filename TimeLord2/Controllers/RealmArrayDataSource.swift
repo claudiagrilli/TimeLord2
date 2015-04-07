@@ -7,10 +7,10 @@ import Realm
 
 class RealmArrayDataSource: NSObject, UITableViewDataSource {
     
-    let dataSource: RLMResults
+    let dataSource: RLMCollection
     let configureCell: (objectFromRow: RLMObject,indexPath:NSIndexPath) -> UITableViewCell
     
-    init(dataSource: RLMResults, configureCell: (objectFromRow: RLMObject,indexPath:NSIndexPath) -> UITableViewCell) {
+    init(dataSource: RLMCollection, configureCell: (objectFromRow: RLMObject,indexPath:NSIndexPath) -> UITableViewCell) {
         self.dataSource = dataSource
         self.configureCell = configureCell
     }

@@ -13,7 +13,19 @@ class Task: RLMObject {
     dynamic var title = ""
     dynamic var fullDescription = ""
     dynamic var stopAction = 0
-    dynamic var project : Project?
+    var projects: [Project] {
+        return linkingObjectsOfClass("Project", forProperty: "tasks") as [Project]
+    }
     dynamic var timesheet = RLMArray(objectClassName: TimeTrack.className())
-}
+    dynamic var isFavourite = false
+    dynamic var isRunning = false
 
+    func addTimeTrack() {
+        RealmManager.updateObject({
+            var timeObject = TimeTrack()
+            timeObject.startDate = NSDate()
+            self.timesheet.addObject(timeObject)
+        })
+    }
+    
+}

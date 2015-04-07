@@ -12,6 +12,9 @@ import Realm
 class Project: RLMObject {
     dynamic var title = ""
     dynamic var fullDescription = ""
-    dynamic var client : Client?
+    var clients: [Client] {
+        return linkingObjectsOfClass("Client", forProperty: "projects") as [Client]
+    }
     dynamic var tasks = RLMArray(objectClassName: Task.className())
 }
+

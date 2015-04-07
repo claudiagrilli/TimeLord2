@@ -12,5 +12,9 @@ import Realm
 class TimeTrack: RLMObject {
     dynamic var startDate = NSDate()
     dynamic var endDate : NSDate?
-    dynamic var task : Task?
+    var tasks: [Task] {
+        return linkingObjectsOfClass("Task", forProperty: "timesheets") as [Task]
+    }
+    
+
 }

@@ -12,6 +12,11 @@ import Realm
 class Client: RLMObject {
     dynamic var name = ""
     dynamic var projects = RLMArray(objectClassName: Project.className())
-    
+ 
+    class func addClientWithName(name : String) {
+        var clientObject = Client()
+        clientObject.name = name
+        RealmManager.addObject(clientObject)
+    }
 }
 
