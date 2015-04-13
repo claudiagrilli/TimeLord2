@@ -19,22 +19,9 @@ class TimeManager: NSObject {
        return [Task]()
     }()
     
-    func startTask(task: Task){
-        //Update task status
-        RealmManager.updateObject({
-            task.isRunning = true
-        })
-        //Add task to active tasks
+    func addActiveTask(task:Task) {
         self.activeTasks.append(task)
-        //Add timeTrack with current date
-        task.addTimeTrack()
-    }
-    
-    func stopTask(task: Task){
-        
     }
 
-    func timerTicked(){
-        
-    }
+
 }

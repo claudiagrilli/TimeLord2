@@ -24,18 +24,26 @@ class Task: RLMObject {
         var taskObject = Task()
         taskObject.title = title
         taskObject.fullDescription = fullDescription
-        
-        RLMRealm.defaultRealm().beginWriteTransaction()
-        project.tasks.addObject(taskObject)
-        RLMRealm.defaultRealm().commitWriteTransaction()
+        RealmManager.updateObject({
+            project.tasks.addObject(taskObject)
+        })
     }
 
-    func addTimeTrack() {
+    func start(){
+        //Update task status
+        //Add timeTrack with current date
+        var timeObject = TimeTrack.timeTrackStartingNow()
+
         RealmManager.updateObject({
-            var timeObject = TimeTrack()
-            timeObject.startDate = NSDate()
+            self.isRunning = true
             self.timesheet.addObject(timeObject)
         })
+        //Add task to active tasks
+        TimeManager.sharedInstance.addActiveTask(self)
+    }
+    
+    func stop(){
+        
     }
     
 }

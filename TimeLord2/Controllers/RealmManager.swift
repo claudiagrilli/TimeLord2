@@ -11,9 +11,9 @@ import Realm
 
 class RealmManager {
     class func addObject(object:RLMObject, realm:RLMRealm=RLMRealm.defaultRealm()){
-        realm.beginWriteTransaction()
-        realm.addObject(object)
-        realm.commitWriteTransaction()
+        realm.transactionWithBlock { () -> Void in
+            realm.addObject(object)
+        }
     }
     
     class func updateObject(realm:RLMRealm,updateBlock : ()->(Void)){

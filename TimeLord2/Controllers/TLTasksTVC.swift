@@ -127,9 +127,9 @@ class TLTasksTVC: UITableViewController {
         
         var execAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: execActionTitle) { (action, indexPath) -> Void in
             if(task.isRunning){
-                TimeManager.sharedInstance.stopTask(task)
+                task.stop()
             }else{
-                TimeManager.sharedInstance.startTask(task)
+                task.start()
             }
         }
         execAction.backgroundColor = task.isRunning ? UIColor.redColor() : UIColor.greenColor()

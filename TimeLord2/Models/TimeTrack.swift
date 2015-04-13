@@ -16,5 +16,16 @@ class TimeTrack: RLMObject {
         return linkingObjectsOfClass("Task", forProperty: "timesheets") as! [Task]
     }
     
-
+//    class func addTimeTrack(task:Task) {
+//        RealmManager.updateObject({
+//            var timeObject = TimeTrack()
+//            timeObject.startDate = NSDate()
+//            task.timesheet.addObject(timeObject)
+//        })
+//    }
+    class func timeTrackStartingNow() -> TimeTrack {
+        var timeObject = TimeTrack()
+        timeObject.startDate = NSDate()
+        return timeObject
+    }
 }
