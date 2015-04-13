@@ -21,8 +21,8 @@ class TLClientsTVC: UITableViewController {
         
         return RealmArrayDataSource(dataSource: self.clients, configureCell: { (objectFromRow,indexPath) -> UITableViewCell in
         
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("clientCellID", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = (objectFromRow as Client).name
+            let cell = self.tableView.dequeueReusableCellWithIdentifier("clientCellID", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.text = (objectFromRow as! Client).name
         
             return cell
         })
@@ -54,8 +54,8 @@ class TLClientsTVC: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier=="goToProjects" {
             if let selectedPath = self.tableView.indexPathForSelectedRow() {
-                let currentClient = self.clients.objectAtIndex(UInt(selectedPath.row)) as Client
-                var projectsTVC = segue.destinationViewController as TLProjectsTVC
+                let currentClient = self.clients.objectAtIndex(UInt(selectedPath.row)) as! Client
+                var projectsTVC = segue.destinationViewController as! TLProjectsTVC
                 projectsTVC.currentClient = currentClient
             }
         }
@@ -86,7 +86,7 @@ class TLClientsTVC: UITableViewController {
         // Create action
         let cancelAction = UIAlertAction(title:cancelTitle, style: .Cancel) {(_) in}
         let addAction = UIAlertAction(title: addTitle, style: .Default) { (action) -> Void in
-            let clientName = alertController.textFields![0] as UITextField
+            let clientName = alertController.textFields![0] as! UITextField
 
             Client.addClient(clientName.text)
             

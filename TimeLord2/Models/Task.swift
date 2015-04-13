@@ -14,7 +14,7 @@ class Task: RLMObject {
     dynamic var fullDescription = ""
     dynamic var stopAction = 0
     var projects: [Project] {
-        return linkingObjectsOfClass("Project", forProperty: "tasks") as [Project]
+        return linkingObjectsOfClass("Project", forProperty: "tasks") as! [Project]
     }
     dynamic var timesheet = RLMArray(objectClassName: TimeTrack.className())
     dynamic var isFavourite = false

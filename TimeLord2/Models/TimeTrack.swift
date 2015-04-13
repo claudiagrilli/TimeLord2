@@ -13,7 +13,7 @@ class TimeTrack: RLMObject {
     dynamic var startDate = NSDate()
     dynamic var endDate : NSDate?
     var tasks: [Task] {
-        return linkingObjectsOfClass("Task", forProperty: "timesheets") as [Task]
+        return linkingObjectsOfClass("Task", forProperty: "timesheets") as! [Task]
     }
     
 

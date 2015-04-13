@@ -25,8 +25,8 @@ class TLProjectsTVC: UITableViewController {
         
         return RealmArrayDataSource(dataSource: self.projects, configureCell: { (objectFromRow,indexPath) -> UITableViewCell in
             
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("projectCellID", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = (objectFromRow as Project).title
+            let cell = self.tableView.dequeueReusableCellWithIdentifier("projectCellID", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.text = (objectFromRow as! Project).title
             
             return cell
         })
@@ -54,8 +54,8 @@ class TLProjectsTVC: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier=="goToTasks" {
             if let selectedPath = self.tableView.indexPathForSelectedRow() {
-                let currentProject = self.projects.objectAtIndex(UInt(selectedPath.row)) as Project
-                var tasksTVC = segue.destinationViewController as TLTasksTVC
+                let currentProject = self.projects.objectAtIndex(UInt(selectedPath.row)) as! Project
+                var tasksTVC = segue.destinationViewController as! TLTasksTVC
                 tasksTVC.currentProject = currentProject
             }
         }
@@ -63,7 +63,7 @@ class TLProjectsTVC: UITableViewController {
 
     func refreshProjects()-> RLMArray{
         let clients = Client.objectsWhere("name = %@", currentClient.name)
-        let client = clients.firstObject() as Client
+        let client = clients.firstObject() as! Client
         return client.projects
         
     }
@@ -88,8 +88,8 @@ class TLProjectsTVC: UITableViewController {
         // Create action
         let cancelAction = UIAlertAction(title:cancelTitle, style: .Cancel) {(_) in}
         let addAction = UIAlertAction(title: addTitle, style: .Default) { (action) -> Void in
-            let projectTitle = alertController.textFields![0] as UITextField
-            let projectDescription = alertController.textFields![1] as UITextField
+            let projectTitle = alertController.textFields![0] as! UITextField
+            let projectDescription = alertController.textFields![1] as! UITextField
             Project.addProject(projectTitle.text, fullDescription: projectDescription.text, client: self.currentClient)
             
             self.refresh()

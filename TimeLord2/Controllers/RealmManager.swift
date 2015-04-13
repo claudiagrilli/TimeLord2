@@ -16,7 +16,13 @@ class RealmManager {
         realm.commitWriteTransaction()
     }
     
-    class func updateObject(updateBlock : ()->(Void),realm:RLMRealm=RLMRealm.defaultRealm()){
+    class func updateObject(realm:RLMRealm,updateBlock : ()->(Void)){
         realm.transactionWithBlock(updateBlock)
     }
+
+    class func updateObject(updateBlock : ()->(Void)){
+        let realm = RLMRealm.defaultRealm()
+        realm.transactionWithBlock(updateBlock)
+    }
+
 }

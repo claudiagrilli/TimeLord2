@@ -20,7 +20,7 @@ class RealmArrayDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let objectFromRow = dataSource[UInt(indexPath.row)] as RLMObject
+        let objectFromRow = dataSource[UInt(indexPath.row)] as! RLMObject
         return configureCell(objectFromRow: objectFromRow, indexPath: indexPath)
     }
 }

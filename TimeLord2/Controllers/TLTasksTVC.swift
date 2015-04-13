@@ -25,8 +25,8 @@ class TLTasksTVC: UITableViewController {
         
         return RealmArrayDataSource(dataSource: self.tasks, configureCell: { (objectFromRow,indexPath) -> UITableViewCell in
             
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("taskCellID", forIndexPath: indexPath) as UITableViewCell
-            cell.textLabel?.text = (objectFromRow as Task).title
+            let cell = self.tableView.dequeueReusableCellWithIdentifier("taskCellID", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.text = (objectFromRow as! Task).title
             
             return cell
         })
@@ -58,7 +58,7 @@ class TLTasksTVC: UITableViewController {
     
     func refreshTasks()-> RLMArray{
         let projects = Project.objectsWhere("title = %@", currentProject.title)
-        let project = projects.firstObject() as Project
+        let project = projects.firstObject() as! Project
         return project.tasks
         
     }
@@ -82,8 +82,8 @@ class TLTasksTVC: UITableViewController {
         // Create action
         let cancelAction = UIAlertAction(title:cancelTitle, style: .Cancel) {(_) in}
         let addAction = UIAlertAction(title: addTitle, style: .Default) { (action) -> Void in
-            let taskTitle = alertController.textFields![0] as UITextField
-            let taskDescription = alertController.textFields![1] as UITextField
+            let taskTitle = alertController.textFields![0] as! UITextField
+            let taskDescription = alertController.textFields![1] as! UITextField
 
             Task.addTask(taskTitle.text, fullDescription: taskDescription.text, project: self.currentProject)
             
@@ -115,7 +115,7 @@ class TLTasksTVC: UITableViewController {
     //MARK: ROW ACTIONS
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         // Execute/Stop task or mark as favourite to show inside the main tab
-        let task : Task = self.tasks.objectAtIndex(UInt(indexPath.row)) as Task
+        let task : Task = self.tasks.objectAtIndex(UInt(indexPath.row)) as! Task
         let execAction = execActionForTask(task)
         let favouriteAction = favouriteActionForTask(task)
         
