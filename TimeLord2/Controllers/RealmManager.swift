@@ -22,7 +22,7 @@ class RealmManager {
 
     class func updateObject(updateBlock : ()->(Void)){
         let realm = RLMRealm.defaultRealm()
-        realm.transactionWithBlock(updateBlock)
+        self.updateObject(realm, updateBlock: updateBlock)
     }
 
 }
