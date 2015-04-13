@@ -16,5 +16,14 @@ class Project: RLMObject {
         return linkingObjectsOfClass("Client", forProperty: "projects") as [Client]
     }
     dynamic var tasks = RLMArray(objectClassName: Task.className())
+    
+    class func addProject(title:String, fullDescription:String, client:Client){
+        var projectObject = Project()
+        projectObject.title = title
+        projectObject.fullDescription = fullDescription
+        RealmManager.updateObject({
+            client.projects.addObject(projectObject)
+        })
+    }
 }
 

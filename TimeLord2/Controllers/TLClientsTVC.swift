@@ -72,6 +72,7 @@ class TLClientsTVC: UITableViewController {
     }
     
     // MARK: - Add client
+    // TO DO: Substitute alert with a nicer form
     @IBAction func doAddClient(sender: UIBarButtonItem) {
         // Initialize all the strings
         let alertTitle = NSLocalizedString("Add client",comment:"Title in add client alert")
@@ -87,7 +88,7 @@ class TLClientsTVC: UITableViewController {
         let addAction = UIAlertAction(title: addTitle, style: .Default) { (action) -> Void in
             let clientName = alertController.textFields![0] as UITextField
 
-            Client.addClientWithName(clientName.text)
+            Client.addClient(clientName.text)
             
             self.refresh()
         }

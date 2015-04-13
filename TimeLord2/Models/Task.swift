@@ -20,6 +20,16 @@ class Task: RLMObject {
     dynamic var isFavourite = false
     dynamic var isRunning = false
 
+    class func addTask(title:String, fullDescription:String, project:Project){
+        var taskObject = Task()
+        taskObject.title = title
+        taskObject.fullDescription = fullDescription
+        
+        RLMRealm.defaultRealm().beginWriteTransaction()
+        project.tasks.addObject(taskObject)
+        RLMRealm.defaultRealm().commitWriteTransaction()
+    }
+
     func addTimeTrack() {
         RealmManager.updateObject({
             var timeObject = TimeTrack()

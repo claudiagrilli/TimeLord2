@@ -62,8 +62,13 @@ class TLTasksTVC: UITableViewController {
         return project.tasks
         
     }
+    func refresh(){
+        self.tasks = self.refreshTasks()
+        self.tableView.reloadData()
+    }
     
     // MARK: - Add task
+    // TO DO: Substitute alert with a nicer form
     @IBAction func doAddTask(sender: UIBarButtonItem) {
         // Initialize all the strings
         let alertTitle = NSLocalizedString("Add task",comment:"Title in add task alert")
@@ -79,17 +84,10 @@ class TLTasksTVC: UITableViewController {
         let addAction = UIAlertAction(title: addTitle, style: .Default) { (action) -> Void in
             let taskTitle = alertController.textFields![0] as UITextField
             let taskDescription = alertController.textFields![1] as UITextField
-            //TODO: Extract task object creation
-            var taskObject = Task()
-            taskObject.title = taskTitle.text
-            taskObject.fullDescription = taskDescription.text
+
+            Task.addTask(taskTitle.text, fullDescription: taskDescription.text, project: self.currentProject)
             
-            RLMRealm.defaultRealm().beginWriteTransaction()
-            self.currentProject.tasks.addObject(taskObject)
-            RLMRealm.defaultRealm().commitWriteTransaction()
-            
-            self.tasks = self.refreshTasks()
-            self.tableView.reloadData()
+            self.refresh()
         }
         
         // Add action is enabled only if textField is not empty
@@ -114,8 +112,9 @@ class TLTasksTVC: UITableViewController {
         
     }
     
+    //MARK: ROW ACTIONS
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-
+        // Execute/Stop task or mark as favourite to show inside the main tab
         let task : Task = self.tasks.objectAtIndex(UInt(indexPath.row)) as Task
         let execAction = execActionForTask(task)
         let favouriteAction = favouriteActionForTask(task)
@@ -151,7 +150,7 @@ class TLTasksTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        //neede for rowactions
+        //needed for rowactions
     }
 
     

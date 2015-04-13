@@ -74,6 +74,7 @@ class TLProjectsTVC: UITableViewController {
     }
     
     // MARK: - Add project
+    // TO DO: Substitute alert with a nicer form
     @IBAction func doAddProject(sender: UIBarButtonItem) {
         // Initialize all the strings
         let alertTitle = NSLocalizedString("Add project",comment:"Title in add project alert")
@@ -89,13 +90,8 @@ class TLProjectsTVC: UITableViewController {
         let addAction = UIAlertAction(title: addTitle, style: .Default) { (action) -> Void in
             let projectTitle = alertController.textFields![0] as UITextField
             let projectDescription = alertController.textFields![1] as UITextField
-            //TODO: Extract project object creation
-            var projectObject = Project()
-            projectObject.title = projectTitle.text
-            projectObject.fullDescription = projectDescription.text
-            RealmManager.updateObject({
-                self.currentClient.projects.addObject(projectObject)
-            })
+            Project.addProject(projectTitle.text, fullDescription: projectDescription.text, client: self.currentClient)
+            
             self.refresh()
         }
         
