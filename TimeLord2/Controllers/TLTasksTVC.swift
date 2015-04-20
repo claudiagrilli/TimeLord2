@@ -21,30 +21,33 @@ class TLTasksTVC: UITableViewController {
         return self.refreshTasks()
         }()
     
-    lazy var dataSource : RealmArrayDataSource = {
-        
-        return RealmArrayDataSource(dataSource: self.tasks, configureCell: { (objectFromRow,indexPath) -> UITableViewCell in
-            
-            let cell = self.tableView.dequeueReusableCellWithIdentifier("taskCellID", forIndexPath: indexPath) as! UITableViewCell
-            cell.textLabel?.text = (objectFromRow as! Task).title
-            
-            return cell
-        })
-        }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.dataSource = self.dataSource
+// Using generic dataSource rowActions don't work!!
+//self.tableView.dataSource = self.dataSource
         
         if(self.tasks.count == 0){
             self.doAddTask(self.addTask)
         }
     }
     
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Int(self.tasks.count)
+    }
     
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let identifier = "taskCellID"
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
+        let task : Task = self.tasks[UInt(indexPath.row)] as! Task
+            
+        cell.textLabel?.text = task.title
+        
+        return cell
+    }
     
     /*
     // MARK: - Navigation
@@ -114,14 +117,16 @@ class TLTasksTVC: UITableViewController {
     
     //MARK: ROW ACTIONS
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        
         // Execute/Stop task or mark as favourite to show inside the main tab
         let task : Task = self.tasks.objectAtIndex(UInt(indexPath.row)) as! Task
         let execAction = execActionForTask(task)
         let favouriteAction = favouriteActionForTask(task)
+        let editAction = editActionForTask(task)
         
-        return [execAction,favouriteAction]
+        return [execAction,favouriteAction,editAction]
     }
-    
+    // Start and stop row action
     func execActionForTask(task : Task) -> UITableViewRowAction {
         let execActionTitle = task.isRunning ? NSLocalizedString("Stop", comment: "Stop action in swipe cell") : NSLocalizedString("Start", comment: "Start action in swipe cell")
         
@@ -132,10 +137,12 @@ class TLTasksTVC: UITableViewController {
                 task.start()
             }
         }
+        // TODO: Select colors for start and stop
         execAction.backgroundColor = task.isRunning ? UIColor.redColor() : UIColor.greenColor()
         
         return execAction;
     }
+    //Favourite row action
     func favouriteActionForTask(task : Task) -> UITableViewRowAction {
         let favActionTitle = task.isFavourite ? NSLocalizedString("Hide", comment: "Don't show this task in the main page") : NSLocalizedString("Show", comment: "Show this task in the main page")
         
@@ -144,14 +151,26 @@ class TLTasksTVC: UITableViewController {
                 task.isFavourite = !task.isFavourite
             })
         }
-        favAction.backgroundColor = task.isFavourite ? UIColor.orangeColor() : UIColor.yellowColor()
+        // TODO: Select colors for favourite/not
+        favAction.backgroundColor = task.isFavourite ? UIColor.darkGrayColor() : UIColor.lightGrayColor()
         
         return favAction;
+    }
+    
+    //Edit row action
+    func editActionForTask(task : Task) -> UITableViewRowAction{
+        let editActionTitle = NSLocalizedString("Edit",comment:"Edit action")
+        var editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: editActionTitle) { (action, indexPath) -> Void in
+            //Edit
+        }
+        // TODO: Select color for editing
+        editAction.backgroundColor = UIColor.cyanColor()
+        return editAction
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         //needed for rowactions
     }
 
-    
+
 }
