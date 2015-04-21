@@ -16,6 +16,16 @@ class TLTasksTVC: UITableViewController {
     @IBOutlet weak var addTask: UIBarButtonItem!
     
     var currentProject: Project!
+    lazy var dataSource : RealmArrayDataSource = {
+        
+        return RealmArrayDataSource(dataSource: self.tasks, configureCell: { (objectFromRow,indexPath) -> UITableViewCell in
+            
+            let cell = self.tableView.dequeueReusableCellWithIdentifier("taskCellID", forIndexPath: indexPath) as! UITableViewCell
+            cell.textLabel?.text = (objectFromRow as! Task).title
+            
+            return cell
+        })
+        }()
     
     lazy var tasks : RLMArray = {
         return self.refreshTasks()
@@ -27,8 +37,7 @@ class TLTasksTVC: UITableViewController {
         
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
-// Using generic dataSource rowActions don't work!!
-//self.tableView.dataSource = self.dataSource
+        self.tableView.dataSource = self.dataSource
         
         if(self.tasks.count == 0){
             self.doAddTask(self.addTask)
@@ -168,9 +177,7 @@ class TLTasksTVC: UITableViewController {
         return editAction
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        //needed for rowactions
-    }
+
 
 
 }

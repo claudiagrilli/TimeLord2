@@ -23,4 +23,8 @@ class RealmArrayDataSource: NSObject, UITableViewDataSource {
         let objectFromRow = dataSource[UInt(indexPath.row)] as! RLMObject
         return configureCell(objectFromRow: objectFromRow, indexPath: indexPath)
     }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        //needed for rowactions
+    }
 }
