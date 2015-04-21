@@ -26,6 +26,18 @@ class TLTasksTVC: UITableViewController {
             return cell
         })
         }()
+
+    lazy var delegate : RealmArrayDelegate = {
+        return RealmArrayDelegate(dataSource: self.tasks, configureRowActions: { [unowned self](objectFromRow, indexPath) -> [UITableViewRowAction] in
+            
+            // Execute/Stop task or mark as favourite to show inside the main tab
+            let task : Task = self.tasks.objectAtIndex(UInt(indexPath.row)) as! Task
+            let execAction = self.execActionForTask(task)
+            let favouriteAction = self.favouriteActionForTask(task)
+            let editAction = self.editActionForTask(task)
+            
+            return [execAction,favouriteAction,editAction]        })
+        }()
     
     lazy var tasks : RLMArray = {
         return self.refreshTasks()
@@ -38,25 +50,14 @@ class TLTasksTVC: UITableViewController {
         self.tableView.estimatedRowHeight = 44
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self.dataSource
+        self.tableView.delegate = self.delegate
         
         if(self.tasks.count == 0){
             self.doAddTask(self.addTask)
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(self.tasks.count)
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let identifier = "taskCellID"
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
-        let task : Task = self.tasks[UInt(indexPath.row)] as! Task
-            
-        cell.textLabel?.text = task.title
-        
-        return cell
-    }
+
     
     /*
     // MARK: - Navigation
@@ -124,17 +125,8 @@ class TLTasksTVC: UITableViewController {
         
     }
     
-    //MARK: ROW ACTIONS
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        
-        // Execute/Stop task or mark as favourite to show inside the main tab
-        let task : Task = self.tasks.objectAtIndex(UInt(indexPath.row)) as! Task
-        let execAction = execActionForTask(task)
-        let favouriteAction = favouriteActionForTask(task)
-        let editAction = editActionForTask(task)
-        
-        return [execAction,favouriteAction,editAction]
-    }
+    // MARK: Row Actions
+
     // Start and stop row action
     func execActionForTask(task : Task) -> UITableViewRowAction {
         let execActionTitle = task.isRunning ? NSLocalizedString("Stop", comment: "Stop action in swipe cell") : NSLocalizedString("Start", comment: "Start action in swipe cell")

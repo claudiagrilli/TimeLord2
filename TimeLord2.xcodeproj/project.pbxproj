@@ -22,6 +22,7 @@
 		49A7C7501ACD4E04002ADE5B /* TLTasksTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A7C74F1ACD4E04002ADE5B /* TLTasksTVC.swift */; };
 		49A7C7521ACEC59F002ADE5B /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A7C7511ACEC59F002ADE5B /* TimeManager.swift */; };
 		49B4A3AF1AB8739E0027C3CA /* TLProjectsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4A3AE1AB8739E0027C3CA /* TLProjectsTVC.swift */; };
+		49BE0AEC1AE697470090EC86 /* RealmArrayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BE0AEB1AE697470090EC86 /* RealmArrayDelegate.swift */; };
 		49EEBE4A1A79334E00571C59 /* RealmArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49EEBE491A79334E00571C59 /* RealmArrayDataSource.swift */; };
 		49EEBE4F1A793CB600571C59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49EEBE511A793CB600571C59 /* InfoPlist.strings */; };
 		49EEBE541A793CB600571C59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49EEBE561A793CB600571C59 /* InfoPlist.strings */; };
@@ -61,6 +62,7 @@
 		49A7C74F1ACD4E04002ADE5B /* TLTasksTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLTasksTVC.swift; sourceTree = "<group>"; };
 		49A7C7511ACEC59F002ADE5B /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		49B4A3AE1AB8739E0027C3CA /* TLProjectsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLProjectsTVC.swift; sourceTree = "<group>"; };
+		49BE0AEB1AE697470090EC86 /* RealmArrayDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmArrayDelegate.swift; sourceTree = "<group>"; };
 		49EEBE491A79334E00571C59 /* RealmArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmArrayDataSource.swift; sourceTree = "<group>"; };
 		49EEBE4B1A793B8E00571C59 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		49EEBE4C1A793B8F00571C59 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				49B4A3AE1AB8739E0027C3CA /* TLProjectsTVC.swift */,
 				49A7C74F1ACD4E04002ADE5B /* TLTasksTVC.swift */,
 				49A7C7511ACEC59F002ADE5B /* TimeManager.swift */,
+				49BE0AEB1AE697470090EC86 /* RealmArrayDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				49EEBE4A1A79334E00571C59 /* RealmArrayDataSource.swift in Sources */,
 				49A7C7501ACD4E04002ADE5B /* TLTasksTVC.swift in Sources */,
 				49A7C7521ACEC59F002ADE5B /* TimeManager.swift in Sources */,
+				49BE0AEC1AE697470090EC86 /* RealmArrayDelegate.swift in Sources */,
 				49B4A3AF1AB8739E0027C3CA /* TLProjectsTVC.swift in Sources */,
 				49797BBA1A729DF3005C37E6 /* AppDelegate.swift in Sources */,
 				49797BE51A729E9F005C37E6 /* RLMSupport.swift in Sources */,
